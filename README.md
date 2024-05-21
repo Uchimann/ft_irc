@@ -23,7 +23,7 @@ This project is an implementation of an Internet Relay Chat (IRC) server, follow
     <tr>
       <td  align="center"  valign="top"  width="20%"><a  href="https://github.com/uchimann"><img  src="https://avatars.githubusercontent.com/u/133144077?v=4"  width="100px;"  alt="Martin Burak Brettschneider"/><br  /><sub><b>İsmail Çelebi</b></sub></a><br  /></td>
       <td  align="center"  valign="top"  width="20%"><a  href="https://github.com/eozdur"><img  src="https://avatars.githubusercontent.com/u/101213607?v=4"  width="100px;"  alt="Yiğithan Karabulut"/><br  /><sub><b>Emre Özdur</b></sub></a><br  /></td>
-      <td  align="center"  valign="top"  width="20%"><a  href="https://github.com/yucOx"><img  src="https://avatars.githubusercontent.com/u/73720000?v=4"  width="100px;"  alt="Umut Akkan"/><br  /><sub><b>Yücem Aydın</b></sub></a><br  /></td>
+      <td  align="center"  valign="top"  width="20%"><a  href="https://github.com/yucOx"><img  src="https://avatars.githubusercontent.com/u/73720000?v=4"  width="100px;"  alt="Umut Akkan"/><br  /><sub><b>Mehmet Yücem Aydın</b></sub></a><br  /></td>
 </td>
     </tr>
   </table>
