@@ -106,7 +106,7 @@ void Server::acceptRequest()
     // İstemcinin bağlandığı bağlantı noktası bilgisi alınır ve geçici Client nesnesinin _port özelliğine atanır.
     tmp._port = ntohs(cliAddr.sin_port);
 
-    // İstemcinin IP adresi alınır ve ASCII dize biçimine dönüştürülür.
+    // İstemcinin IP adresi alınır ve ASCII dize biçimine dönüştürülür. Buralara detaylı bakılacak - uchiman -emre
     inet_ntop(AF_INET, &(cliAddr.sin_addr), tmp._ipAddr, INET_ADDRSTRLEN);
 
     // Yeni istemcinin dosya tanımlayıcısı, sunucunun okuma dosya tanımlayıcı kümesine eklenir. Bu, gelecekteki okuma işlemlerini izlemek için gereklidir.
@@ -117,8 +117,8 @@ void Server::acceptRequest()
     _clients.push_back(tmp); // Geçici Client nesnesi, sunucunun istemci listesine eklenir.
 }
 
-/* Açıkama fonksiyon altında - yucOx
-std::map<std::string, std::vector<std::string>> Server::getParams(std::string const &str)
+// Açıkama fonksiyon altında - yucOx
+/*std::map<std::string, std::vector<std::string>> Server::getParams(std::string const &str)
 {
     std::stringstream ss(str);
     std::string tmp;
@@ -154,8 +154,8 @@ std::map<std::string, std::vector<std::string>> Server::getParams(std::string co
         ret[cmd] = params;
     }
     return ret;
-}
-*/
+}*/
+
 
 // Üstteki fonksiyonda değişken isimleri kötü isimlendirimiş ve gereksiz tekrarları var aşağıdaki hali
 // ile güncellendi, problem halinde eskiye dönülebilir -yucOx
@@ -243,6 +243,8 @@ std::map<std::string, std::vector<std::string> > Server::getParams(const std::st
 }
 */
 
+
+
 void Server::commandHandler(std::string &str, Client &cli)
 {
     std::map<std::string, std::vector<std::string>> params = getParams(str); // command - parametreler şeklinde gelen stringi işler ve komutu ve parametreleri ayırır -yucOx
@@ -279,6 +281,7 @@ void Server::readEvent(int *state)
                 std::string tmp = _buffer; // buffer dizisi stringe dönüştürülür.
                 if (tmp == "\n")
                 { // ğer okunan veri sadece yeni satır karakteri ise, bu durum işlenir ve state sıfırlanır, böylece döngü sona erer.
+                    std::cout << "readevent icinde yeni satır karakteri geldi\n" << std::endl; // -uchiman burasini kontrol edeceğim
                     *state = 0;
                     break;
                 }
@@ -289,7 +292,7 @@ void Server::readEvent(int *state)
                     it->_buffer += tmp;
                     *state = 0;
                     break;
-                } !!!Böyle bir ihtimal yok. -yucOx */
+                }*/ //!!!Böyle bir ihtimal yok. -yucOx 
 
                 // eğer okunan verinin sonunda yeni satır karakteri varsa, bu veri işlenir.
                 else
@@ -302,6 +305,7 @@ void Server::readEvent(int *state)
             }
             break;
         }
+        // kendime not: emre ile beraber buralarda bir yerlerde read edilen kısımları kontrol et mesaj tam alınmış mı diye (bosluklarla beraber) -uchiman
     }
 }
 
@@ -383,8 +387,11 @@ void Server::run()
         }
         // ****ALTTAKİ STATE'E HİÇBİR ŞEKİLDE GİRMİYOR, GERİ KALAN KISIMLAR TAMAM. BU KISIM ELLERİNİZDEN ÖPER o7****
         //Geri kalan kısımların çoğuna -yucOx etiketiyle not düştüm bakarsınız. şimdiden kolay gelsin -yucOx
+        // soketler arası iletisimde alttaki bloğa giriyor. örneğin kullanıcılar arası mesajlarda veya kanallara yazılacak olan editlerde vs giriyor
+        // fakat yazma veya okuma kısımlarında birkaç eksik var : işareti olma ve olmama durumlarına göre eksik yazıyor.
         if (state)
         {
+            std::cout << "state: write kisminda " << std::endl;
             writeEvent();
             state = 0;
             continue;

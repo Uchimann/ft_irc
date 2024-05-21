@@ -36,6 +36,7 @@ void Server::passChecker(Client& client)
 
 void Server::getAfterColon(std::vector<std::string>& params)
 {
+    std::cout << "getAfterColon" << std::endl;
     params[1].erase(0, 1);
     for (size_t i = 2; i < params.size(); ++i) {
         params[1] += " " + params[i];

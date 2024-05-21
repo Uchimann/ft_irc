@@ -12,4 +12,8 @@ int main(int ac, char **av)
         std::cout << e.what() << std::endl;
     }
     return 0;
+    // prıvmsg ve notıce konutlarında okuma veya pars kısımlarındabirkaç yerde değişiklik yapmamız lazım. 
+    // ":" işareti olmadan gönderilen mesajların boşluklar ve sonraları gitmiyor. 
+    // ":" işareti ile gönderilen mesaj ve noticelerde bosluklar ile beraber tüm mesajlar gidiyor.
+    //getafter colon fonksiyonlarından mnce ve sonraki yerlerde bir kontrol hatasi olmuş olabilir. 
 }
