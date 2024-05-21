@@ -44,7 +44,7 @@ class Server
         // methods
         Server();
         ~Server();
-        std::map<std::string, std::vector<std::string> > getParams(std::string const& str);
+        std::map<std::string, std::vector<std::string> > getParams(std::string const& input);
         static Server* singleton;
         void showRightGui(Client &cli, Channel &cha);
         int isNickExist(std::string const&);
