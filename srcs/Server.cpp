@@ -385,10 +385,8 @@ void Server::run()
             if (state == 0)
                 continue;
         }
-        // ****ALTTAKİ STATE'E HİÇBİR ŞEKİLDE GİRMİYOR, GERİ KALAN KISIMLAR TAMAM. BU KISIM ELLERİNİZDEN ÖPER o7****
-        //Geri kalan kısımların çoğuna -yucOx etiketiyle not düştüm bakarsınız. şimdiden kolay gelsin -yucOx
         // soketler arası iletisimde alttaki bloğa giriyor. örneğin kullanıcılar arası mesajlarda veya kanallara yazılacak olan editlerde vs giriyor
-        // fakat yazma veya okuma kısımlarında birkaç eksik var : işareti olma ve olmama durumlarına göre eksik yazıyor.
+        // fakat yazma veya okuma kısımlarında birkaç eksik var : işareti olma ve olmama durumlarına göre eksik yazıyor.-uchiman
         if (state)
         {
             std::cout << "state: write kisminda " << std::endl;
