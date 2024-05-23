@@ -27,6 +27,7 @@ Server *Server::getInstance()
     }
 }
 
+
 void Server::initCommands()
 {
     _commands["PASS"] = &Server::Pass;
@@ -61,7 +62,7 @@ void Server::initCommands()
 // fcntl fonksiyonu, soketi blok olmayan hale getirir. Bu, soketin non-blocking olarak çalışmasını sağlar.
 // Bu, aynı zamanda I/O işlemlerinin bloke olmadan devam etmesine olanak tanır.
 
-// setsockopt fonksiyonu, soket seçeneklerini ayarlar. Bu durumda, SO_REUSEADDR seçeneği, aynı adresi ve portu birden fazla soketle paylaşabilme yeteneğini sağlar.
+// setsockopt fonksiyonu, soket seçeneklerini ayarlar. Bu durumda, SO_REUSEADDR seçeneği, sunucu aniden açılıp kapandığında portu tekrar kullanabilmesini sağlar.
 // Bu, sunucunun hızlı yeniden başlatılmasını veya bağlantı hatası durumunda aynı portu hızlı bir şekilde kullanabilmesini sağlar.
 void Server::createSocket()
 {
@@ -83,7 +84,7 @@ void Server::bindSocket(size_t const &port)
     server_addr.sin_port = htons(port);           // Bağlanılacak port numarasını belirtir. htons fonksiyonu, host byte order'ını network byte order'a dönüştürür (endianness konusunda uyumsuzlukları düzeltir).
     // yani htons sayesinde gönderici, gödnerdiği bit sıralamasını alıcının sbit sıralama tipine göre hazırlayıp göndermeye yarıyor.
     if (bind(_serverFd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) // soketi belirtilen adres ve port ile ilişkilendirir.
-        throw std::runtime_error("Bind");
+        throw std::runtime_error("Bind error! Maybe port is already in use.");
 
     if (listen(_serverFd, SOMAXCONN) < 0) // soketi bir bağlantı noktasına dönüştürür ve gelen bağlantıları dinlemeye başlar. SOMAXCONN parametresi, aynı anda dinlenebilecek en fazla bağlantı sayısını belirtir.
         throw std::runtime_error("Listen");
@@ -373,14 +374,18 @@ void Server::run()
          Belirli bir zaman aralığı belirlenmişse, fonksiyon olay meydana gelene kadar veya belirtilen zaman aralığı sona erene kadar bekler
         Sunucu soketi üzerinde yeni bir bağlantı varsa, acceptRequest fonksiyonunu çağırır. Ardından, state'i 0'a ayarlar ve döngünün başına döner.*/
 
+
+        //sadece bağlantı olduğunda giriyor
         if (FD_ISSET(_serverFd, &_readFdsSup))
         {                    // FD_ISSET makrosu, belirtilen fd'nin set kümesinde bulunup bulunmadığını kontrol eder.
             acceptRequest(); // Eğer fd kümede bulunuyorsa ve belirli bir olaya hazır durumdaysa, FD_ISSET true değerini döndürür;
             state = 0;
             continue; // acceptRequest fonksiyonunu çağırır ve döngünün başına döner.
         }
+      
         if (state)
         {
+            std::cout << "state: read kisminda " << std::endl;
             readEvent(&state);
             if (state == 0)
                 continue;
