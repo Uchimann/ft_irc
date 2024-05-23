@@ -79,7 +79,7 @@ void Server::modesLimit(chanIt& it, std::vector<std::string>& params, int* flag)
     if (params[1] == "-l")
         it->_userLimit = 0;
     if (params[1] == "+l")
-        it->_userLimit = std::stoi(params[2]);
+        it->_userLimit = std::atoi(params[2].c_str());
     Utils::writeMessage(getOpFd(it->_opNick), RPL_MODE(it->_opNick, params[0], "+l", params[2]));
     return ;
 }

@@ -161,11 +161,11 @@ void Server::acceptRequest()
 // ile güncellendi, problem halinde eskiye dönülebilir -yucOx
 
 // Bu fonksiyon, gelen veriyi işler ve komutları ve parametreleri ayırır (detayları altta) -yucOx
-std::map<std::string, std::vector<std::string>> Server::getParams(const std::string &input)
+std::map<std::string, std::vector<std::string> > Server::getParams(const std::string &input)
 {
     std::stringstream inputStream(input);
     std::string currentWord;
-    std::map<std::string, std::vector<std::string>> commandParamsMap;
+    std::map<std::string, std::vector<std::string> > commandParamsMap;
     std::vector<std::string> paramsList;
     inputStream >> currentWord;
     std::string currentCommand;
@@ -247,8 +247,8 @@ std::map<std::string, std::vector<std::string> > Server::getParams(const std::st
 
 void Server::commandHandler(std::string &str, Client &cli)
 {
-    std::map<std::string, std::vector<std::string>> params = getParams(str); // command - parametreler şeklinde gelen stringi işler ve komutu ve parametreleri ayırır -yucOx
-    for (std::map<std::string, std::vector<std::string>>::iterator it = params.begin(); it != params.end(); ++it)
+    std::map<std::string, std::vector<std::string> > params = getParams(str); // command - parametreler şeklinde gelen stringi işler ve komutu ve parametreleri ayırır -yucOx
+    for (std::map<std::string, std::vector<std::string> >::iterator it = params.begin(); it != params.end(); ++it)
     {
         if (_commands.find(it->first) == _commands.end())
         {
@@ -385,8 +385,10 @@ void Server::run()
             if (state == 0)
                 continue;
         }
+        // ****ALTTAKİ STATE'E HİÇBİR ŞEKİLDE GİRMİYOR, GERİ KALAN KISIMLAR TAMAM. BU KISIM ELLERİNİZDEN ÖPER o7****
+        //Geri kalan kısımların çoğuna -yucOx etiketiyle not düştüm bakarsınız. şimdiden kolay gelsin -yucOx
         // soketler arası iletisimde alttaki bloğa giriyor. örneğin kullanıcılar arası mesajlarda veya kanallara yazılacak olan editlerde vs giriyor
-        // fakat yazma veya okuma kısımlarında birkaç eksik var : işareti olma ve olmama durumlarına göre eksik yazıyor.-uchiman
+        // fakat yazma veya okuma kısımlarında birkaç eksik var : işareti olma ve olmama durumlarına göre eksik yazıyor.
         if (state)
         {
             std::cout << "state: write kisminda " << std::endl;

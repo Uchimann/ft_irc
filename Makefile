@@ -1,6 +1,6 @@
 NAME = ircserv
 CC = c++
-CFLAGS = #-std=c++98 -Wall -Wextra -Werror
+CFLAGS = -std=c++98 -Wall -Wextra -Werror
 SRC_DIR = srcs
 OBJ_DIR = obj
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/commands/*.cpp)
