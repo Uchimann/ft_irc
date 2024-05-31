@@ -1,6 +1,6 @@
 # FT_IRC
 
-# USEFUL LINKS
+# Useful Lınks
 
 https://datatracker.ietf.org/doc/html/rfc1459
 
