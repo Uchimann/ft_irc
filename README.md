@@ -3,9 +3,12 @@ Internet Relay Chat (IRC) is a text-based communication protocol on the Internet
 
 Create your own IRC server in C++, fully compatible with official clients.
 
+![232305724-6ba1fbda-caa8-4a64-bee7-20b8685ff3a6](https://github.com/Uchimann/ft_irc/assets/101213607/ee7e13e9-e1b9-4b1a-96f2-bbe6796a03b0)
 # Useful Links
 
 https://datatracker.ietf.org/doc/html/rfc1459
+
+
 
 https://www.youtube.com/watch?v=uwnizUUBn3M
 
