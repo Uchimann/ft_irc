@@ -5,20 +5,6 @@ std::string infoMessage()
     std::string message;
 
     message += " +--------------------------------------------------------+\n";
-    message += "| * Based on the original code written by Jarkko Oikarinen |\n";
-    message += "| * Copyright 1988, 1989, 1990, 1991 University of Oulu,   |\n";
-    message += "|   Computing Center                                       |\n";
-    message += "|                                                          |\n";
-    message += "| * This program is free software; you can redistribute it |\n";
-    message += "|   and/or modify it under the terms of the MIT License as |\n";
-    message += "|   published by the Free Software Foundation; either      |\n";
-    message += "|   version 1, or (at your option) any later version.      |\n";
-    message += "|                                                          |\n";
-    message += "| * Developers:                                            |\n";
-    message += "|   - Martin Burak Brettschneider (mbrettsc)               |\n";
-    message += "|   - Umut Akkan                  (uakkan)                 |\n";
-    message += "|   - Yiğithan Karabulut          (ykarabul)               |\n";
-    message += "|                                                          |\n";
     message += "| * Current commands:                                      |\n";
     message += "|   - BOT                                                  |\n";
     message += "|   - CAP                                                  |\n";

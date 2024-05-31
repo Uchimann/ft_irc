@@ -15,9 +15,9 @@ void Server::BotNotice(std::vector<std::string>& params, Client& cli)
 void Server::Notice(std::vector<std::string>& params, Client& cli)
 {
     passChecker(cli);
-    if (params[0] == "*") {
+    if (params[0] == "*") { 
         BotNotice(params, cli);
-        return ;
+        return ; 
     }
     if (params[0][0] == '#') {
         Utils::writeMessage(cli._cliFd, "Cannot notice a channel\r\n");

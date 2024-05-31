@@ -8,7 +8,7 @@ void Server::Mode(std::vector<std::string>& params, Client& cli)
 {
     passChecker(cli);
     if (params.size() == 1)
-        return;
+        return; 
     if (params.size() < 1 || params.size() > 3) {
         Utils::writeMessage(cli._cliFd, ERR_NEEDMOREPARAMS(cli._nick, params[0]));
         return ;

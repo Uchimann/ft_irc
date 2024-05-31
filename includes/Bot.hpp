@@ -9,22 +9,18 @@
 
 class Bot
 {
-    private:
+    public:
         // variables
         int _fd;
         int _port;
         std::string _password;
-        static Bot* singleton;
-        
         // methods
         Bot(): _fd(0), _port(0), _password("") {};
         ~Bot();
-        void setPort(int);
-        void setPasword(std::string const&);
-        void createSocket();
-        void run();
-        void execute(std::string const&);
-    public:
-        static Bot *getInstance();
+        void bot_setPort(int);
+        void bot_setPasword(std::string const&);
+        void bot_createSocket();
+        void bot_run();
         void manageBot(int, std::string const&);
+        static void signalHandler(int);
 };

@@ -101,12 +101,12 @@ void Server::showRightGui(Client &cli, Channel &tmp) {
 
 void Server::setPort(size_t const& port)
 {
-    _port = port;
+    this->_port = port;
 }
 
 void Server::setPassword(std::string const& password)
 {
-    _password = password;
+    this->_password = password;
 }
 
 void Server::printStatus()

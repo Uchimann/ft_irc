@@ -1,6 +1,6 @@
 #include "../../includes/Server.hpp"
 
-int Server::CheckNickDepends(std::vector<std::string>& params, Client& cli)
+int Server::CheckNickDepends(std::vector<std::string>& params, Client& cli) 
 {
     if (cli._isCap == NC) {
         passChecker(cli);

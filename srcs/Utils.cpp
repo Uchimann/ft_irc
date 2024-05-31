@@ -22,37 +22,36 @@ std::string Utils::intToString(int n)
 }
 
 
-//65535 sayısı, 16-bit unsigned integer türünün (unsigned short) maksimum değeridir.
-//Bu nedenle genellikle bir port numarasının maksimum değeri olarak kullanılır.
 int Utils::portIsValid(std::string const& port)
 {
-    for (size_t i = 0; i < port.size(); ++i) {
+
+    for (size_t i = 0; i < port.size(); ++i) 
+    {
         if (!isdigit(port[i]))
             return 0;
     }
-    if (atoi(port.c_str()) > 65535)
+
+    if (atoi(port.c_str()) < 1024 || atoi(port.c_str()) > 49151)
         return 0;
     return 1;
 }
 
 std::string Utils::welcome()
 {
-    std::string data;
-
-    data +=  ".-.  .-. .----. .-.    .----.  .---.  .-.  .-. .----.   .-----.  .---.  \n";
-    data += "| {  } | } |__} } |    | }`-' / {-. \\ }  \\/  { } |__}   `-' '-' / {-. \\ \n";
-    data += "{  /\\  } } '__} } '--. | },-. \\ '-} / | {  } | } '__}     } {   \\ '-} / \n";
-    data += "`-'  `-' `----' `----' `----'  `---'  `-'  `-' `----'     `-'    `---'  \n";
-    data += "                                                                        \n";
-    data += "                     .---.  .-. .-. .---.    \n";
-    data += "                    / {-. \\ | } { | } }}_}             mbrettsc\n";
-    data += "                    \\ '-} / \\ `-' / | } \\              uakkan\n";
-    data += "                     `---'   `---'  `-'-'              ykarabul\n";
-    data += "                                             \n";
-    data += ".-. .---.  .----.      .----. .----. .---.  .-.   .-..----. .---.  \n";
-    data += "{ | } }}_} | }`-'     { {__-` } |__} } }}_}  \\ \\_/ / } |__} } }}_} \n";
-    data += "| } | } \\  | },-.     .-._} } } '__} | } \\    \\   /  } '__} | } \\  \n";
-    data += "`-' `-'-'  `----'     `----'  `----' `-'-'     `-'   `----' `-'-'\n";
-    
-    return data;
+      std::string ascii_art = 
+        "  ____        _        _____                            _   \n"
+        " |  _ \\      | |      / ____|                          | |  \n"
+        " | |_) |_   _| |_ ___| |     ___  _ __  _ __   ___  ___| |_ \n"
+        " |  _ <| | | | __/ _ \\ |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __|\n"
+        " | |_) | |_| | ||  __/ |___| (_) | | | | | | |  __/ (__| |_ \n"
+        " |____/ \\__, |\\__\\___|\\_____|\\___/|_| |_|_| |_|\\___|\\___|\\__|\n"
+        "         __/ |                                              \n"
+        "   _____|___/     ______                                   \n"
+        "  / ____|  /\\    |___  /                                   \n"
+        " | (___   /  \\      / /                                    \n"
+        "  \\___ \\ / /\\ \\    / /                                     \n"
+        "  ____) / ____ \\  / /__                                    \n"
+        " |_____/_/    \\_\\/_____|                                   \n";
+                           
+    return ascii_art;
 }

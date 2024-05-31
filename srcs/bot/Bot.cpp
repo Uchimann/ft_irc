@@ -1,38 +1,29 @@
 #include "../../includes/Bot.hpp"
 
-Bot* Bot::singleton = NULL;
-
-Bot* Bot::getInstance()
-{
-    try {
-        if (singleton == NULL)
-            singleton = new Bot;
-        return singleton;
-    } catch (std::exception & e) {
-        std::cerr << e.what() << std::endl;
-        exit(1);
-    }
-}
-
 Bot::~Bot()
 {
-    if (singleton != NULL)
-        delete singleton;
-    singleton = NULL;
-    close(_fd);
+    
 }
 
-void Bot::setPasword(std::string const& password)
+void Bot::bot_setPasword(std::string const& password)
 {
-    _password = password;
+    this->_password = password;
 }
 
-void Bot::setPort(int port)
+void Bot::bot_setPort(int port)
 {
-    _port = port;
+    this->_port = port;
 }
 
-void Bot::createSocket()
+void Bot::signalHandler(int signum)
+{
+    (void)signum;
+    std::cout << RED << "Bot disconnected" << RESET << std::endl;
+    system("leaks bot");
+    exit(0);
+}
+
+void Bot::bot_createSocket()
 {
     if ((_fd = socket(AF_INET, SOCK_STREAM, 0)) <= 0)
         throw std::runtime_error("socket() failed");
@@ -46,7 +37,7 @@ void Bot::createSocket()
     std::cout << BLUE << "Bot connected to server" << RESET << std::endl;
 }
 
-void Bot::run()
+void Bot::bot_run()
 {
     int login = 0;
     while (1)
@@ -62,7 +53,10 @@ void Bot::run()
         buffer[bytes_received] = '\0';
         std::string tmp = buffer;
         if (bytes_received <= 0)
+        {
+            close(_fd);
             throw std::runtime_error("recv() failed");
+        }
         std::stringstream ss(tmp);
         std::string ctr;
         ss >> ctr;
@@ -81,8 +75,8 @@ void Bot::run()
 
 void Bot::manageBot(int port, std::string const& password)
 {
-    setPasword(password);
-    setPort(port);
-    createSocket();
-    run();
+    bot_setPasword(password);
+    bot_setPort(port);
+    bot_createSocket();
+    bot_run();
 }

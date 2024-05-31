@@ -25,6 +25,7 @@ class Server
 {
     private:
         // variables
+        static bool signal;
         int _serverFd;
         int _botFd;
         size_t _port;
@@ -35,15 +36,14 @@ class Server
         std::vector<Client> _clients;
         
         // fd_set's
-        fd_set _readFds; // okuma dosyası filedescriptionları tutan bir küme
-        fd_set _writeFds; // yazma " " " " ""
-        fd_set _readFdsSup; // okuma kümesinin yedeği
-        fd_set _writeFdsSup; // yazma kümesinin yedeği
+        fd_set _readFds;
+        fd_set _writeFds; 
+        fd_set _readFdsSup;
+        fd_set _writeFdsSup; 
         int _fdCount; 
         
         // methods
         Server();
-        ~Server();
         std::map<std::string, std::vector<std::string> > getParams(std::string const& input);
         static Server* singleton;
         void showRightGui(Client &cli, Channel &cha);
@@ -97,6 +97,8 @@ class Server
         void Bot(std::vector<std::string>&, Client&);
         void Help(std::vector<std::string>&, Client&);
     public:
+        void clear_server();
+        static void signalHandler(int sigNum);
         void manageServer(size_t const &, std::string const &);
         static Server* getInstance();
 };

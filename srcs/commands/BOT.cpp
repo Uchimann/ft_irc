@@ -3,7 +3,8 @@
 void Server::Bot(std::vector<std::string>& params, Client& cli)
 {
     passChecker(cli);
-    if (cli._nick == "") {
+    if (cli._nick == "") 
+    {
         Utils::writeMessage(cli._cliFd, "Set your nickname first\r\n");
         return ;
     }

@@ -1,30 +1,48 @@
 NAME = ircserv
+BOTNAME = bot
 CC = c++
-CFLAGS = -std=c++98 -Wall -Wextra -Werror
-SRC_DIR = srcs
-OBJ_DIR = obj
-SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/commands/*.cpp)
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+
+FLAG = -std=c++98 -Wall -Wextra -Werror
+
+SRC = srcs/main.cpp srcs/Server.cpp srcs/Channel.cpp \
+      srcs/Utils.cpp srcs/UtilsServer.cpp srcs/commands/BOT.cpp srcs/commands/JOIN.cpp \
+      srcs/commands/CAP.cpp srcs/commands/HELP.cpp srcs/commands/INFO.cpp srcs/commands/INVITE.cpp \
+      srcs/commands/KICK.cpp srcs/commands/LIST.cpp srcs/commands/MODE.cpp srcs/commands/NOTICE.cpp \
+      srcs/commands/NICK.cpp srcs/commands/OPER.cpp srcs/commands/PART.cpp \
+      srcs/commands/PASS.cpp srcs/commands/PRIVMSG.cpp srcs/commands/QUIT.cpp srcs/commands/USER.cpp \
+      srcs/commands/TOPIC.cpp srcs/commands/WHO.cpp srcs/commands/WHOIS.cpp
+
+BOTSRC = srcs/bot/Bot.cpp srcs/bot/main.cpp srcs/Utils.cpp
+
+OBJDIR = obj
+BOTOBJDIR = bot_obj
+
+OBJS = $(SRC:%.cpp=$(OBJDIR)/%.o)
+BOTOBJS = $(BOTSRC:%.cpp=$(BOTOBJDIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJS)
+	$(CC) $(FLAG) $(OBJS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BOTNAME): $(BOTOBJS)
+	$(CC) $(FLAG) $(BOTOBJS) -o $(BOTNAME)
 
-$(OBJ_DIR):
-	mkdir -p $(dir $(OBJ_FILES))
+$(OBJDIR)/%.o: %.cpp
+	mkdir -p $(dir $@)
+	$(CC) $(FLAG) -c $< -o $@
 
-bonus:
-	$(CC) $(CFLAGS) $(SRC_DIR)/bot/*.cpp $(SRC_DIR)/Utils.cpp $^ -o bot
+$(BOTOBJDIR)/%.o: %.cpp
+	mkdir -p $(dir $@)
+	$(CC) $(FLAG) -c $< -o $@
+
+bonus: $(BOTNAME)
 
 clean:
-	rm -rf $(NAME) bot
+	rm -rf $(OBJDIR) $(BOTOBJDIR)
 
 fclean: clean
-	rm -rf $(OBJ_DIR)
+	rm -f $(NAME) $(BOTNAME)
 
 re: fclean all
 
